@@ -7,4 +7,6 @@ daft - is directories and files tool. It's needed to work with directories and f
 git clone https://github.com/solalek/daft.git
 cd daft
 make
+./daft 
 ```
+
