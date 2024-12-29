@@ -12,6 +12,3 @@ Available Commands:
     - Exits the program.
     - Example usage: `exit`
 
-Description:
-- Use the `read` command followed by the name of a file to read and display its contents. For example: `read example.txt`.
-- Use the `exit` command to quit the program. For example: `exit`.
