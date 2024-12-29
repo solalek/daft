@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
 #include "fileHandler/reader.h"
 #include "fileHandler/writer.h"
 #include "dirHandler/listDir.h"
@@ -43,6 +44,9 @@ char *getInput(char *args) {
             args = backArgs;
         }
         strcpy(args, token);
+    } else {
+        args = realloc(args, 2);
+        strcpy(args, "");
     }
     return input;
 }
@@ -81,6 +85,12 @@ int doCommand(char *command, char *args) {
     } else if (!strcmp(command, "ls")) {
         system("clear");
         listDir(args);
+    } else if (!strcmp(command, "mkdir")) {
+        mkdir(args, 0777);
+        printf("\n");
+    } else if (!strcmp(command, "rmdir")) {
+        rmdir(args);
+        printf("\n");
     }
     else {
         return -1;
