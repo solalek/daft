@@ -47,7 +47,18 @@ char *getInput(char *args) {
 
 void helpCommand() {
     system("clear");
-    readFile(HELP_PATH);
+    FILE *file = fopen(HELP_PATH, "r");
+    if (file == NULL) {
+        char *errorMsg = (char *) malloc(strlen("fopen: file \"\"") + strlen(HELP_PATH) + 1);
+        sprintf(errorMsg, "fopen: file \"%s\"", HELP_PATH);
+        perror(errorMsg);
+        free(errorMsg);
+    }
+    char ch;
+    while ((ch = getc(file)) != EOF) {
+        putchar(ch);
+    }
+    fclose(file);
 }
 
 void doCommand(char *command, char *args) {
