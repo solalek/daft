@@ -1,12 +1,16 @@
 Available Commands:
 
 1. `read <filename>`:
-   - Opens the specified file and displays its content.
-   - Example usage: `read example.txt`
+    - Opens the specified file and displays its content.
+    - Example usage: `read example.txt`
+
+2. `write <filename>`:
+    - Opens the specified file and write your input in this file.
+    - Example usage: `write example.txt`
 
 2. `exit`:
-   - Exits the program.
-   - Example usage: `exit`
+    - Exits the program.
+    - Example usage: `exit`
 
 Description:
 - Use the `read` command followed by the name of a file to read and display its contents. For example: `read example.txt`.
