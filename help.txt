@@ -1,14 +1,35 @@
 Available Commands:
 
-1. `read <filename>`:
+1. `clear`:
+    - Just clean terminal.
+
+2. `read <filename>`:
     - Opens the specified file and displays its content.
     - Example usage: `read example.txt`
 
-2. `write <filename>`:
+3. `write <filename>`:
     - Opens the specified file and write your input in this file.
     - Example usage: `write example.txt`
 
-2. `exit`:
+4. `cd <path>`:
+    - Change current directory.
+    - Example usage: `cd ..` or `cd /home`
+
+5. `ls <dirname>`:
+    - Shows directories and files in directory.
+    - Example usage: 
+        `ls` - opens '.',
+        `ls /home`
+
+6. `mkdir <dirname>`:
+    - Creates new directory in working directory
+    - Example usage: `mkdir example`
+
+7. `rmdir <dirname>`:
+    - Removes directory
+    - Example usage: `rmdir example`
+
+8. `exit`:
     - Exits the program.
     - Example usage: `exit`
 
