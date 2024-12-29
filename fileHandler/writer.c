@@ -50,7 +50,7 @@ int writeFile(char *PATH) {
             system("clear");
             break;
         }
-        fprintf(file, "%s", buffer);
+        fprintf(file, "%s\n", buffer);
         free(buffer);
         i++;
     }
