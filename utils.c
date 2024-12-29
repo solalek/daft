@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include "fileHandler/reader.h"
 #include "fileHandler/writer.h"
+#include "dirHandler/listDir.h"
 
 char *getInput(char *args) {
     char *input = NULL;
@@ -77,6 +78,9 @@ int doCommand(char *command, char *args) {
     } else if (!strcmp(command, "cd")) {
         system("clear");
         chdir(args);
+    } else if (!strcmp(command, "ls")) {
+        system("clear");
+        listDir(args);
     }
     else {
         return -1;
