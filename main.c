@@ -20,6 +20,7 @@ int main(int argc, char *argv[]) {
         char *args = (char *) malloc(1);
         char *dirName;
         system("clear");
+        printf("Welcome. To see available commands, write `help`.\n\n");
         while (true) {
             dirName = getCurrentDir();
             printf(BLUE_TEXT"%s\n"RESET_COLOR, dirName);
