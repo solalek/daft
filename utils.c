@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include "fileHandler/reader.h"
 #include "fileHandler/writer.h"
 
@@ -65,13 +66,19 @@ int doCommand(char *command, char *args) {
     if (!strcmp(command, "help")) {
         helpCommand();
         return 0;
+    } else if (!strcmp(command, "clear")) {
+        system("clear");
     } else if (!strcmp(command, "read")) {
         readFile(args);
         return 0;
     } else if (!strcmp(command, "write")) {
         writeFile(args);
         return 0;
-    } else {
+    } else if (!strcmp(command, "cd")) {
+        system("clear");
+        chdir(args);
+    }
+    else {
         return -1;
     }
 }

@@ -10,12 +10,8 @@
 #define RESET_COLOR "\033[0m"
 #define BLUE_TEXT "\033[34m"
 
-DIR *folder;
-FILE *file;
-
 int main(int argc, char *argv[]) {
     if (argc == 1) {
-        folder = opendir(".");
         char *input;
         char *args = (char *) malloc(1);
         char *dirName;
