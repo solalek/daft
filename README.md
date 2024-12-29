@@ -1,5 +1,5 @@
 # daft
-daft - is directories and files tool. It's needed to work with directories and files
+Daft (Directories And Files Tool) is a utility designed for efficient file and directory management. It simplifies tasks such as reading, writing, creating, deleting, and filtering file system content.
 
 # Installing
 
