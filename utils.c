@@ -61,12 +61,17 @@ void helpCommand() {
     fclose(file);
 }
 
-void doCommand(char *command, char *args) {
+int doCommand(char *command, char *args) {
     if (!strcmp(command, "help")) {
         helpCommand();
+        return 0;
     } else if (!strcmp(command, "read")) {
         readFile(args);
+        return 0;
     } else if (!strcmp(command, "write")) {
         writeFile(args);
+        return 0;
+    } else {
+        return -1;
     }
 }

@@ -28,7 +28,9 @@ int main(int argc, char *argv[]) {
             input = getInput(args);
             // printf("User Input: %s\nUser Args: %s\n", input, args);
             if (!strcmp(input, "exit")) break;
-            doCommand(input, args);
+            if (doCommand(input, args) == -1) {
+                printf("'%s': Invalid command.\n", input);
+            }
         }
         printf("\nFinishing program...\n");
         free(input);

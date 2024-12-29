@@ -5,6 +5,6 @@ char *getInput(char *args);
 
 void helpCommand();
 
-void doCommand(char *command, char *args);
+int doCommand(char *command, char *args);
 
 #endif
