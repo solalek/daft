@@ -1,5 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
+#include <dirent.h>
+#include <stdbool.h>
 
 typedef enum {
     SUCCESS,
@@ -17,5 +19,7 @@ int doCommand(char *command, int argc, char *args[]);
 void showError(errorCode code, char *input);
 
 char *getCommandByFlag(int *argc, char *argv[]);
+
+bool isEmptyDir(DIR *dir);
 
 #endif

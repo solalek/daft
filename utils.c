@@ -5,9 +5,11 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <stdbool.h>
+#include <dirent.h>
 #include "fileHandler/reader.h"
 #include "fileHandler/writer.h"
 #include "dirHandler/listDir.h"
+#include "dirHandler/recursiveRmDir.h"
 
 char *getCommandByFlag(int *argc, char *argv[]) {
     printf("Argc: %d\n", *argc);
@@ -91,22 +93,36 @@ void helpCommand() {
     fclose(file);
 }
 
+bool isEmptyDir(DIR *dir) {
+    struct dirent *entry;
+    while ((entry = readdir(dir)) != NULL) {
+        if (strcmp(entry->d_name, ".") && strcmp(entry->d_name, "..")) {
+            return false;
+        }
+    }
+    return true;
+}
+
 int doCommand(char *command, int argc, char *args[]) {
     if (!strcmp(command, "help")) {
         if (argc != 0) {
             return TOO_MANY_ARGS;
         }
         helpCommand();
-    } else if (!strcmp(command, "clear")) {
+    } 
+    else if (!strcmp(command, "clear")) {
         if (argc != 0) {
             return TOO_MANY_ARGS;
         }
         system("clear");
-    } else if (!strcmp(command, "read")) {
+    } 
+    else if (!strcmp(command, "read")) {
         readFile(argc, args);
-    } else if (!strcmp(command, "write")) {
+    } 
+    else if (!strcmp(command, "write")) {
         writeFile(argc, args);
-    } else if (!strcmp(command, "cd")) {
+    } 
+    else if (!strcmp(command, "cd")) {
         if (argc > 1) {
             return TOO_MANY_ARGS;
         }
@@ -115,17 +131,25 @@ int doCommand(char *command, int argc, char *args[]) {
         }
         system("clear");
         chdir(args[0]);
-    } else if (!strcmp(command, "ls")) {
+    } 
+    else if (!strcmp(command, "ls")) {
         if (argc > 1) {
             return TOO_MANY_ARGS;
         }
         system("clear");
         listDir(argc, args);
-    } else if (!strcmp(command, "mkdir")) {
+    } 
+    else if (!strcmp(command, "mkdir")) {
         mkdir(args[0], 0777);
         printf("\n");
-    } else if (!strcmp(command, "rmdir")) {
-        rmdir(args[0]);
+    } 
+    else if (!strcmp(command, "rmdir")) {
+        DIR *dir = opendir(args[0]);
+        if (isEmptyDir(dir)) {
+            rmdir(args[0]);
+        } else {
+            rrmdir(args[0]);
+        }
         printf("\n");
     }
     else {
