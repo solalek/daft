@@ -9,8 +9,8 @@ int listDir(int argc, char *argv[]) {
         struct dirent *entry;
         char *PATH;
         if (argc == 0) {
-            PATH = (char *) malloc(strlen("") + 1);
-            strcpy(PATH, "");
+            PATH = (char *) malloc(strlen(".") + 1);
+            strcpy(PATH, ".");
         } else {
             PATH = (char *) malloc(strlen(argv[0]) + 1);
             strcpy(PATH, argv[0]);

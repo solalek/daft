@@ -20,10 +20,7 @@ int main(int argc, char *argv[]) {
         while (true) {
             dirName = getCurrentDir();
             printf(BLUE_TEXT"%s\n"RESET_COLOR, dirName);
-            printf("> ");
-            input = getInput(&argc, argv);
-            // printf("User Input: %s\nUser Argc: %d\nUser Argv: ", input, argc);
-            // printf("[ ");
+            printf("> "); input = getInput(&argc, argv); // printf("User Input: %s\nUser Argc: %d\nUser Argv: ", input, argc); printf("[ ");
             // for (int i = 0; i < argc; ++i) {
             //     printf("'%s',", argv[i]);
             // } 
@@ -35,6 +32,20 @@ int main(int argc, char *argv[]) {
         printf("\nFinishing program...\n");
         free(input);
         free(dirName);
+    } else {
+        if (argc < 3) {
+            showError(NOT_ENOUGH_ARGS, "");
+            return -1;
+        } else {
+            char **localArgv = (char **) malloc(sizeof(char *) * argc);
+            for (int i = 0; i < argc; ++i) {
+                localArgv[i] = (char *) malloc(strlen(argv[i]) + 1);
+                strcpy(localArgv[i], argv[i]);
+            }
+            char *input = getCommandByFlag(&argc, localArgv);
+            errorCode code = doCommand(input, argc, localArgv);
+            showError(code, input);
+        }
     }
     return 0;
 }

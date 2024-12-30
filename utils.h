@@ -16,4 +16,6 @@ int doCommand(char *command, int argc, char *args[]);
 
 void showError(errorCode code, char *input);
 
+char *getCommandByFlag(int *argc, char *argv[]);
+
 #endif

@@ -4,9 +4,32 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <stdbool.h>
 #include "fileHandler/reader.h"
 #include "fileHandler/writer.h"
 #include "dirHandler/listDir.h"
+
+char *getCommandByFlag(int *argc, char *argv[]) {
+    printf("Argc: %d\n", *argc);
+    if (argv[1][0] != '-' || argv[1][1] != 'c') {
+        printf("%s: Invalid flag!!!", argv[1]);
+        return NULL;
+    } else {
+        char *input = argv[2];
+        char **localArgv = (char **) malloc(sizeof(char *) * (*argc - 3));
+        for (int i = 3; i < *argc; ++i) {
+            localArgv[i-3] = argv[i];
+        }
+        *argc -= 3;
+        argv = realloc(argv, *argc);
+        for (int i = 0; i < *argc; ++i) {
+            argv[i] = (char *) malloc(strlen(localArgv[i]) + 1);
+            strcpy(argv[i], localArgv[i]);
+        }
+        free(localArgv);
+        return input;
+    }
+}
 
 char *getInput(int *argc, char *argv[]) {
     char *input = NULL;
@@ -45,7 +68,6 @@ char *getInput(int *argc, char *argv[]) {
     for (int i = 0; token; ++i) {
         argv = realloc(argv, sizeof(char *) * (i + 1));
         argv[i] = (char *) malloc(strlen(token) + 1);
-        printf("Token: %s\n", token);
         strcpy(argv[i], token);
         token = strtok(NULL, delimiter);
         *argc = i+1;

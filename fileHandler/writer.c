@@ -25,7 +25,7 @@ char *getTextToWrite() {
 }
 
 int writeFile(int argc, char *argv[]) {
-    if (argc == 0) {
+    if (argc == 1) {
         char *PATH = (char *) malloc(strlen(argv[0]) + 1);
         strcpy(PATH, argv[0]);
         FILE *file = fopen(PATH, "w");
