@@ -8,13 +8,12 @@
 #include "fileHandler/writer.h"
 #include "dirHandler/listDir.h"
 
-char *getInput(char *args) {
+char *getInput(int *argc, char *argv[]) {
     char *input = NULL;
     size_t bufferSize = 1;
     size_t length = 0;
     char *delimiter = " ";
     char *token;
-    char *backArgs = args;
 
     input = malloc(bufferSize);
     if (!input) {
@@ -37,16 +36,19 @@ char *getInput(char *args) {
     input[length] = '\0';
     token = strtok(input, delimiter);
     token = strtok(NULL, delimiter);
-    if (token) {
-        args = realloc(args, strlen(token)+1);
-        if (args == NULL) {
-            perror("realloc");
-            args = backArgs;
-        }
-        strcpy(args, token);
-    } else {
-        args = realloc(args, 2);
-        strcpy(args, "");
+    if (token == NULL) {
+        argv = realloc(argv, sizeof(char *));
+        argv[0] = (char *) malloc(strlen("") + 1);
+        strcpy(argv[0], "");
+        *argc = 0;
+    }
+    for (int i = 0; token; ++i) {
+        argv = realloc(argv, sizeof(char *) * (i + 1));
+        argv[i] = (char *) malloc(strlen(token) + 1);
+        printf("Token: %s\n", token);
+        strcpy(argv[i], token);
+        token = strtok(NULL, delimiter);
+        *argc = i+1;
     }
     return input;
 }
@@ -67,29 +69,52 @@ void helpCommand() {
     fclose(file);
 }
 
-int doCommand(char *command, char *args) {
+int doCommand(char *command, int argc, char *args[]) {
     if (!strcmp(command, "help")) {
+        if (argc != 0) {
+            printf("help: Invalid argument: too many arguments!!!");
+            return -1;
+        }
         helpCommand();
         return 0;
     } else if (!strcmp(command, "clear")) {
+        if (argc != 0) {
+            printf("clear: Invalid argument: too many arguments!!!");
+            return -1;
+        }
         system("clear");
+        return 0;
     } else if (!strcmp(command, "read")) {
-        readFile(args);
+        readFile(argc, args);
         return 0;
     } else if (!strcmp(command, "write")) {
-        writeFile(args);
+        writeFile(argc, args);
         return 0;
     } else if (!strcmp(command, "cd")) {
+        if (argc > 1) {
+            printf("cd: Invalid argument: too many arguments!!!");
+            return -1;
+        }
+        if (argc < 1) {
+            printf("cd: Invalid argument: not enough arguments!!!");
+            return -1;
+        }
         system("clear");
-        chdir(args);
+        chdir(args[0]);
+        return 0;
     } else if (!strcmp(command, "ls")) {
+        if (argc > 1) {
+            printf("ls: Invalid argument: too many arguments!!!");
+            return -1;
+        }
         system("clear");
-        listDir(args);
+        listDir(argc, args);
+        return 0;
     } else if (!strcmp(command, "mkdir")) {
-        mkdir(args, 0777);
+        mkdir(args[0], 0777);
         printf("\n");
     } else if (!strcmp(command, "rmdir")) {
-        rmdir(args);
+        rmdir(args[0]);
         printf("\n");
     }
     else {

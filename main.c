@@ -11,25 +11,30 @@
 
 int main(int argc, char *argv[]) {
     if (argc == 1) {
+        argv = (char **) malloc(argc);
         char *input;
-        char *args = (char *) malloc(1);
         char *dirName;
+        char *args;
         system("clear");
         printf("Welcome. To see available commands, write `help`.\n\n");
         while (true) {
             dirName = getCurrentDir();
             printf(BLUE_TEXT"%s\n"RESET_COLOR, dirName);
             printf("> ");
-            input = getInput(args);
-            // printf("User Input: %s\nUser Args: %s\n", input, args);
+            input = getInput(&argc, argv);
+            // printf("User Input: %s\nUser Argc: %d\nUser Argv: ", input, argc);
+            // printf("[ ");
+            // for (int i = 0; i < argc; ++i) {
+            //     printf("'%s',", argv[i]);
+            // } 
+            // printf(" ]\n");
             if (!strcmp(input, "exit")) break;
-            if (doCommand(input, args) == -1) {
-                printf("'%s': Invalid command.\n", input);
-            }
+            // if (doCommand(input, &argc, argv) == -1) {
+            //     printf("'%s': Invalid command.\n", input);
+            // }
         }
         printf("\nFinishing program...\n");
         free(input);
-        free(args);
         free(dirName);
     }
     return 0;

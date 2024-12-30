@@ -1,7 +1,7 @@
 #ifndef READER_H
 #define READER_H
 
-int readFile(char *PATH);
+int readFile(int argc, char *argv[]);
 
 #endif
 

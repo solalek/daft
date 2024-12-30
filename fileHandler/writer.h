@@ -3,6 +3,6 @@
 
 char *getTextToWrite();
 
-int writeFile(char *PATH);
+int writeFile(int argc, char *argv[]);
 
 #endif
