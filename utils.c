@@ -72,44 +72,33 @@ void helpCommand() {
 int doCommand(char *command, int argc, char *args[]) {
     if (!strcmp(command, "help")) {
         if (argc != 0) {
-            printf("help: Invalid argument: too many arguments!!!");
-            return -1;
+            return TOO_MANY_ARGS;
         }
         helpCommand();
-        return 0;
     } else if (!strcmp(command, "clear")) {
         if (argc != 0) {
-            printf("clear: Invalid argument: too many arguments!!!");
-            return -1;
+            return TOO_MANY_ARGS;
         }
         system("clear");
-        return 0;
     } else if (!strcmp(command, "read")) {
         readFile(argc, args);
-        return 0;
     } else if (!strcmp(command, "write")) {
         writeFile(argc, args);
-        return 0;
     } else if (!strcmp(command, "cd")) {
         if (argc > 1) {
-            printf("cd: Invalid argument: too many arguments!!!");
-            return -1;
+            return TOO_MANY_ARGS;
         }
         if (argc < 1) {
-            printf("cd: Invalid argument: not enough arguments!!!");
-            return -1;
+            return NOT_ENOUGH_ARGS;
         }
         system("clear");
         chdir(args[0]);
-        return 0;
     } else if (!strcmp(command, "ls")) {
         if (argc > 1) {
-            printf("ls: Invalid argument: too many arguments!!!");
-            return -1;
+            return TOO_MANY_ARGS;
         }
         system("clear");
         listDir(argc, args);
-        return 0;
     } else if (!strcmp(command, "mkdir")) {
         mkdir(args[0], 0777);
         printf("\n");
@@ -118,6 +107,19 @@ int doCommand(char *command, int argc, char *args[]) {
         printf("\n");
     }
     else {
-        return -1;
+        return UNKNOWN_COMMAND;
+    }
+    return SUCCESS;
+}
+
+void showError(errorCode code, char *input) {
+    if (code == SUCCESS) {
+        return;
+    } else if (code == TOO_MANY_ARGS) {
+        printf("%s: Invalid argument: too many arguments!!!\n", input);
+    } else if (code == NOT_ENOUGH_ARGS) {
+        printf("%s: Invalid argument: not enough arguments!!!\n", input);
+    } else if (code == UNKNOWN_COMMAND) {
+        printf("%s: Invalid command!!!\n", input);
     }
 }

@@ -29,9 +29,8 @@ int main(int argc, char *argv[]) {
             // } 
             // printf(" ]\n");
             if (!strcmp(input, "exit")) break;
-            // if (doCommand(input, &argc, argv) == -1) {
-            //     printf("'%s': Invalid command.\n", input);
-            // }
+            errorCode code = doCommand(input, argc, argv);
+            showError(code, input);
         }
         printf("\nFinishing program...\n");
         free(input);
