@@ -1,3 +1,11 @@
+You can use this commands out of interactive mode,
+Syntax:
+    ./daft -c <command> <args>
+Example:
+    ./daft read example.txt
+
+Or enter interactive mode by launching the program.
+
 Available Commands:
 
 1. `clear`:
