@@ -6,6 +6,10 @@
 
 char *getTextToWrite() {
     char *buffer = (char *) malloc(1);
+    if (!buffer) {
+        perror("malloc");
+        return NULL;
+    }
     size_t bufferSize = 1;
     size_t length = 0;
     char c;
@@ -27,6 +31,10 @@ char *getTextToWrite() {
 int writeFile(int argc, char *argv[]) {
     if (argc == 1) {
         char *PATH = (char *) malloc(strlen(argv[0]) + 1);
+        if (!PATH) {
+            perror("malloc");
+            return NULL;
+        }
         strcpy(PATH, argv[0]);
         FILE *file = fopen(PATH, "w");
         if (file == NULL) {

@@ -6,6 +6,10 @@
 int readFile(int argc, char *argv[]) {
     if (argc == 0) {
         char *PATH = (char *) malloc(strlen(argv[0]) + 1);
+        if (!PATH) {
+            perror("malloc");
+            return -1;
+        }
         strcpy(PATH, argv[0]);
         system("clear");
         printf("Opening \"%s\"...\n", PATH);

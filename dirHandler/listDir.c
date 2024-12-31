@@ -10,9 +10,17 @@ int listDir(int argc, char *argv[]) {
         char *PATH;
         if (argc == 0) {
             PATH = (char *) malloc(strlen(".") + 1);
+            if (!PATH) {
+                perror("malloc");
+                return -1;
+            }
             strcpy(PATH, ".");
         } else {
             PATH = (char *) malloc(strlen(argv[0]) + 1);
+            if (!PATH) {
+                perror("malloc");
+                return -1;
+            }
             strcpy(PATH, argv[0]);
         }
         DIR *dir = opendir(PATH);

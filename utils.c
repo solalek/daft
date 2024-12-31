@@ -12,23 +12,34 @@
 #include "dirHandler/recursiveRmDir.h"
 
 char *getCommandByFlag(int *argc, char *argv[]) {
-    printf("Argc: %d\n", *argc);
     if (argv[1][0] != '-' || argv[1][1] != 'c') {
         printf("%s: Invalid flag!!!", argv[1]);
         return NULL;
     } else {
         char *input = argv[2];
-        char **localArgv = (char **) malloc(sizeof(char *) * (*argc - 3));
+        char **forBackArgv = (char **) malloc(sizeof(char *) * (*argc - 3));
+        if (!forBackArgv) {
+            perror("malloc");
+            return NULL;
+        }
         for (int i = 3; i < *argc; ++i) {
-            localArgv[i-3] = argv[i];
+            forBackArgv[i-3] = argv[i];
         }
         *argc -= 3;
         argv = realloc(argv, *argc);
-        for (int i = 0; i < *argc; ++i) {
-            argv[i] = (char *) malloc(strlen(localArgv[i]) + 1);
-            strcpy(argv[i], localArgv[i]);
+        if (!argv) {
+            perror("realloc");
+            return NULL;
         }
-        free(localArgv);
+        for (int i = 0; i < *argc; ++i) {
+            argv[i] = (char *) malloc(strlen(forBackArgv[i]) + 1);
+            if (!argv[i]) {
+                perror("malloc");
+                return NULL;
+            }
+            strcpy(argv[i], forBackArgv[i]);
+        }
+        free(forBackArgv);
         return input;
     }
 }
@@ -63,13 +74,29 @@ char *getInput(int *argc, char *argv[]) {
     token = strtok(NULL, delimiter);
     if (token == NULL) {
         argv = realloc(argv, sizeof(char *));
+        if (!argv) {
+            perror("realloc");
+            return NULL;
+        }
         argv[0] = (char *) malloc(strlen("") + 1);
+        if (!argv[0]) {
+            perror("realloc");
+            return NULL;
+        }
         strcpy(argv[0], "");
         *argc = 0;
     }
     for (int i = 0; token; ++i) {
         argv = realloc(argv, sizeof(char *) * (i + 1));
+        if (!argv) {
+            perror("realloc");
+            return NULL;
+        }
         argv[i] = (char *) malloc(strlen(token) + 1);
+        if (!argv[i]) {
+            perror("malloc");
+            return NULL;
+        }
         strcpy(argv[i], token);
         token = strtok(NULL, delimiter);
         *argc = i+1;
