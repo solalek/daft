@@ -33,7 +33,7 @@ int writeFile(int argc, char *argv[]) {
         char *PATH = (char *) malloc(strlen(argv[0]) + 1);
         if (!PATH) {
             perror("malloc");
-            return NULL;
+            return -1;
         }
         strcpy(PATH, argv[0]);
         FILE *file = fopen(PATH, "w");
