@@ -170,6 +170,11 @@ int doCommand(char *command, int argc, char *args[]) {
         mkdir(args[0], 0777);
         printf("\n");
     } 
+    else if (!strcmp(command, "mkcd")) {
+        mkdir(args[0], 0777);
+        chdir(args[0]);
+        printf("\n");
+    }
     else if (!strcmp(command, "rmdir")) {
         DIR *dir = opendir(args[0]);
         if (isEmptyDir(dir)) {

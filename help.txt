@@ -33,11 +33,15 @@ Available Commands:
     - Creates new directory in working directory
     - Example usage: `mkdir example`
 
-7. `rmdir <dirname>`:
+7. `mkcd <dirname>`:
+    - Creates new directory and instantly moves into it.
+    - Example usage: `mkcd example`
+
+8. `rmdir <dirname>`:
     - Removes directory
     - Example usage: `rmdir example`
 
-8. `exit`:
+9. `exit`:
     - Exits the program.
     - Example usage: `exit`
 
