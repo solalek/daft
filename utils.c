@@ -10,6 +10,7 @@
 #include "fileHandler/writer.h"
 #include "dirHandler/listDir.h"
 #include "dirHandler/recursiveRmDir.h"
+#include "dirHandler/mkdir.h"
 
 char *getCommandByFlag(int *argc, char *argv[]) {
     if (argv[1][0] != '-' || argv[1][1] != 'c') {
@@ -167,7 +168,8 @@ int doCommand(char *command, int argc, char *args[]) {
         listDir(argc, args);
     } 
     else if (!strcmp(command, "mkdir")) {
-        mkdir(args[0], 0777);
+        // mkdir(args[0], 0777);
+        makeDirs(args[0]);
         printf("\n");
     } 
     else if (!strcmp(command, "mkcd")) {

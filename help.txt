@@ -30,8 +30,10 @@ Available Commands:
         `ls /home`
 
 6. `mkdir <dirname>`:
-    - Creates new directory in working directory
-    - Example usage: `mkdir example`
+    - Creates new directory in working directory, can create several directories.
+    - Example usage: 
+        `mkdir example`,
+        `mkdir deep1/deep2/deep3/example`
 
 7. `mkcd <dirname>`:
     - Creates new directory and instantly moves into it.
